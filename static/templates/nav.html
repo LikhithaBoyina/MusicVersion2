@@ -1,0 +1,40 @@
+<nav class="navbar  navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><span class="cursive">M</span>usic
+    </a>
+    <div class="container">
+
+      <div class="row height d-flex justify-content-center align-items-center">
+        
+
+        <div class="d-flex justify-content-center xbar">
+
+          <div class="form">
+            <i class="fa fa-search"></i>
+            <form id="search-form" action="{% url 'search' %}" method="get" onsubmit="return submitFormOnEnter()">
+            <input type="text" class="form-control form-input" name="q" placeholder="Search anything...">
+            
+            <span class="left-pan"><i id="start-camera" class="fa fa-camera"></i><i class="fa fa-close" id="close-camera"></i></span>
+          </form>
+          </div>
+          
+          
+        </div>
+        <!-- <div id="card1 justify-content-center">
+          <p style="color: whitesmoke;">No face detected</p>
+          <p style="color: whitesmoke;">Please insert face properly</p>
+        </div> -->
+      </div>
+      
+    </div>
+  
+  </div>
+
+</nav>
+<div class="overlay"></div>
+<script>
+  function submitFormOnEnter() {
+      document.getElementById("search-form").submit();
+      return false; // Prevent the default form submission
+  }
+</script>

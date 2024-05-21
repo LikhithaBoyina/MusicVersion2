@@ -1,0 +1,25 @@
+<!-- templates/player/search_results.html -->
+
+{% extends 'main.html' %}
+
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+<h3>Albums:</h3>
+<ul>
+    {% for album in albums %}
+        <li>{{ album.Title }}</li>
+    {% empty %}
+        <li>No matching albums found.</li>
+    {% endfor %}
+</ul>
+
+<h3>Songs:</h3>
+<ul>
+    {% for song in songs %}
+        <li>{{ song.Title }} - {{ song.album.Title }}</li>
+    {% empty %}
+        <li>No matching songs found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

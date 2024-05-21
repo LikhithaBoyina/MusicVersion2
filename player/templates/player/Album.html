@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+
+
+
+{% block content %}
+
+<div class="container">
+  <h2 class="text-white text-center my-3">{{album.Title}}</h2>
+  <img src="{{album.photo.url}}" class="img-thumbnail mx-auto d-block" alt="..." width="250px">
+  <div class="container">
+    <div class="row">
+      <div class="col-0 col-md-3 col-sm-4 col-lg-4">
+
+      </div>
+      <div class="col-12 col-sm-4 col-md-6 col-lg-4 mt-2">
+        {% for song in songs %}
+        <div class="card m-2 d-flex flex-row justify-content-around align-items-center" style="height: 70px;">
+          <span id="numbers" class="ms-3">
+            <div class="cursive">1</div>
+          </span>
+          <p class="card-title text-white">{{song.Title}}</p>
+          <div>
+            <audio id="track">
+              <source src="{{song.File.url}}">
+            </audio>
+            <i class='fa-solid fa-circle-play' id="play" style='color: white;font-size: 1.5rem; padding: 1em;'></i>
+            <!-- <a href="{{song.File.url}} download"><i class='fa fa-download' style='color: white;font-size: 1.5rem;'
+                id="down"></i></a> -->
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+      <div class="col-0 col-md-3 col-sm-4 col-lg-4"></div>
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let audio = document.querySelectorAll('#track');
+  console.log(audio)
+  const play = document.querySelectorAll('#play')
+  let status = 0;
+  for (let i = 0; i < play.length; i++) {
+    play[i].addEventListener('click', () => {
+      if (status == 0) {
+        play[i].parentElement.children[0].play();
+        play[i].className = 'fa-solid fa-circle-pause';
+        status = 1;
+      }
+      else {
+        play[i].parentElement.children[0].pause();
+        play[i].className = 'fa-solid fa-circle-play';
+        status = 0;
+      }
+    })
+  }
+</script>
+
+{% endblock %}

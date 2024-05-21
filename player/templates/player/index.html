@@ -1,0 +1,186 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center cx">
+    <div class="crd">
+        <video id="video" width="320" height="240" autoplay></video>
+        <p class="text-center"><i class="fa fa-camera" id="click-photo" style="color: antiquewhite;"></i></p>
+       <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+    </div>
+
+</div>
+<div class="overlay">    </div>
+
+
+    <ul class="members text-white">
+        
+    </ul>
+      <!-- Latest Albums -->
+    <div class="row justify-content-center" id="LAlbum" style="width: 100%;">
+        <i class='col-lg-1 d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-left'
+            id="left" style='color:#00FFFF; font-size: 1.4rem;'></i>
+    
+        <div class="col-12 col-sm-8 col-md-11 col-lg-10 ms-2 ms-sm-0">
+            <h2 class="text-white mt-1"><span class="cursive">L</span>atest</h2>
+            <div class="row my-3 flex-nowrap flex-row overflow-auto">
+                {% for album in Albums %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card" >
+                        <img src="{{album.photo.url}}"  onclick="location.href=`/Album/{{album.id}}`"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2" >
+                            <div class="card-title">{{album.Title}}
+                                {% if request.user in album.Favourited_by.all %}
+                                <span class=" float-end ms-2"><i
+                                        class='fa fa-heart' id="fbutton" aria-valuetext="{{album.id}}" style="color: red;"></i></span>
+                                {% else %}
+                                <span class=" float-end ms-2"><i
+                                    class='fa fa-heart-o' id="fbutton" aria-valuetext="{{album.id}}"></i></span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <i class=' col-lg-1  d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-right'
+            id="right" style='color:#00FFFF; font-size: 1.4rem;'></i>
+    </div>
+    
+    <!-- Favourite -->
+    <div class="row justify-content-center" id="LAlbum" style="width: 100%;">
+        <i class='col-lg-1 d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-left'
+            id="left" style='color:#00FFFF; font-size: 1.4rem;'></i>
+    
+        <div class="col-12 col-sm-8 col-md-11 col-lg-10">
+            <h2 class="text-white mt-1"><span class="cursive">F</span>avourite</h2>
+            <div class="row my-3 flex-nowrap flex-row overflow-auto">
+                {% for album in Albums %}
+                {% if album.Favourited_by %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="{{album.photo.url}}"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title">{{album.Title}}
+                                {% if album.Favourited_by %}
+                                <span class=" float-end ms-2"><i
+                                        class='fa fa-heart' id="fbutton" aria-valuetext="{{album.id}}" style="color: red;"></i></span>
+                                {% else %}
+                                <span class=" float-end ms-2"><i
+                                    class='fa fa-heart-o' id="fbutton" aria-valuetext="{{album.id}}"></i></span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+        <i class=' col-lg-1  d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-right'
+            id="right" style='color:#00FFFF; font-size: 1.4rem;'></i>
+    </div>
+    
+    
+    
+    <!-- 90's -->
+    <!-- <div class="row" style="width: 100%;">
+        <i class=' col-1  d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-left'
+            id="left" style='color:#00FFFF; font-size: 1.4rem;'></i>
+        <div class="col-12 col-sm-8 col-lg-10">
+            <h2 class="text-white mt-1"><span class="cursive">90's</span></h2>
+            <div class="row my-3 flex-nowrap flex-row overflow-auto">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class=" float-end ms-2"><i
+                                        class='fa fa-heart-o' id="fbutton"></i></span>
+                                <span class="float-end"><i class='fa-solid fa-share-nodes' id="shareButton"
+                                        style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class=" float-end ms-2"><i
+                                        class='fa fa-heart-o' id="fbutton"></i></span>
+                                <span class="float-end"><i class='fa-solid fa-share-nodes' id="shareButton"
+                                        style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class="float-end"><i
+                                        class='fa-solid fa-share-nodes' id="shareButton" style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class="float-end"><i
+                                        class='fa-solid fa-share-nodes' id="shareButton" style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class="float-end"><i
+                                        class='fa-solid fa-share-nodes' id="shareButton" style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class="float-end"><i
+                                        class='fa-solid fa-share-nodes' id="shareButton" style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card">
+                        <img src="https://c.saavncdn.com/972/Adipurush-Hindi-2023-20230607184755-500x500.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body hover-2">
+                            <div class="card-title"><span class="cursive">A</span>dipurush <span class="float-end"><i
+                                        class='fa-solid fa-share-nodes' id="shareButton" style='color: white'></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <i class=' col-1  d-flex align-items-center justify-content-center d-none d-lg-flex fas fa-arrow-alt-circle-right'
+            id="right" style='color:#00FFFF; font-size: 1.4rem;'></i>
+    </div> -->
+
+    
+{% endblock %}
